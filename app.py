@@ -11,7 +11,9 @@ ticker = st.sidebar.text_input("Ticker", "AAPL")
 
 # Download Data
 data = yf.download(ticker, period="1y")
-
+if data.empty:
+    st.error("Unable to fetch stock data.")
+    st.stop()
 st.subheader("Stock Data")
 st.write(data.tail())
 
@@ -77,16 +79,5 @@ st.download_button(
     "text/csv"
 )
 
-# Company Information
-stock = yf.Ticker(ticker)
-
-try:
-    info = stock.info
-
-    st.subheader("Company Information")
-    st.write("Company:", info.get("longName"))
-    st.write("Sector:", info.get("sector"))
-    st.write("Industry:", info.get("industry"))
-    st.write("Market Cap:", info.get("marketCap"))
-except:
-    st.warning("Company information not available.")
+st.subheader("Company Information")
+st.info("Company details feature coming soon.")
