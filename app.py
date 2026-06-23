@@ -20,9 +20,6 @@ try:
 except Exception as e:
     st.error(f"Error fetching data: {e}")
     st.stop()
-if data.empty:
-    st.error("Unable to fetch stock data.")
-    st.stop()
 st.subheader("Stock Data")
 st.write(data.tail())
 
@@ -90,14 +87,3 @@ st.download_button(
 
 st.subheader("Company Information")
 st.info("Company details feature coming soon.")
-ticker = st.sidebar.text_input("Ticker", "AAPL")
-
-if st.sidebar.button("Load Stock Data"):
-
-    data = yf.download(ticker, period="1y")
-
-    if data.empty:
-        st.error("Unable to fetch stock data")
-        st.stop()
-
-    st.write(data.tail())
